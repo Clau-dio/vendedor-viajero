@@ -158,7 +158,23 @@ public class ListaCiudades {
 		/* En cualquier caso disminuimos en uno la cantidad de elementos en la lista */
 		this.cantidadCiudades--;
 	}
-	
+	/**
+	 * Este método se encarga de agregar como sucesoras de una ciudad a todas
+	 * las ciudades que faltan por recorrer en la lista
+	 *  
+	 * @param ciudad
+	 */
+	private void enviarSucesores(Ciudad ciudad) {
+		
+		NodoCiudad nodoActual = this.first;
+		
+		while(nodoActual != null) {
+			
+			ciudad.getCiudadesSucesoras().ingresarCiudad(nodoActual.getCiudad());
+			nodoActual = nodoActual.getNext();
+		}
+		
+	}
 	/**
 	 * Función que busca la ciudad más proxima en una lista de ciudades
 	 * respecto una ciudad especifica
@@ -200,9 +216,10 @@ public class ListaCiudades {
 			/* Ahora el nodo anterior corresponde al nodo actual */
 			nodoAnterior = nodoActual;
 		}
-		
 		/* Eliminamos de la lista de ciudades al nodo que vamos a devoler */
 		this.eliminarNodo(nodoMasProximo);
+		/* La ciudades que quedan son la sucesoras del nodoMasProximo */
+		this.enviarSucesores(nodoMasProximo.getCiudad());
 		/* Devolvemos la ciudad más proxima a la ciudad donde está el viajero*/
 		return nodoMasProximo.getCiudad();
 		
@@ -248,6 +265,8 @@ public class ListaCiudades {
 			 * la retornamos y la eliminamos de la lista */
 			if(ciudadIesima != null) {
 				this.eliminarNodo(nodoActual);
+				/* La ciudades que quedan son la sucesoras del nodoActual */
+				this.enviarSucesores(nodoActual.getCiudad());
 				return ciudadIesima;
 			}else {
 				return null;
@@ -255,4 +274,18 @@ public class ListaCiudades {
 		}
 	}
 	
+	/**
+	 * Método para sacar la ciudad de encima de la lista
+	 * ademas la elimina de la lista
+	 * @return Ciudad
+	 */
+	public Ciudad pop() {
+		
+		Ciudad ciudad = this.first.getCiudad();
+		
+		this.eliminarNodo(this.first);
+		
+		return ciudad;
+		
+	}
 }

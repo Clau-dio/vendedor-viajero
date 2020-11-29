@@ -33,7 +33,7 @@ public class Ciudad {
 		this.nombre 	= nombre;
 		this.i 			= i;
 		this.j 			= j;
-		this.ciudadesSucesoras = null;
+		this.ciudadesSucesoras = new ListaCiudades();
 		
 	}
 	/**
