@@ -92,7 +92,7 @@ public class ListaCiudades {
 		
 		//Si la lista está vacía, entonces el nodo a ingresar
 		//será el primero y el ultimo
-		if (this.isEmpty()) {
+		if (this.isEmpty) {
 			
 			this.first = nuevo;
 			this.last = nuevo;
@@ -207,7 +207,6 @@ public class ListaCiudades {
 		return nodoMasProximo.getCiudad();
 		
 	}
-	
 	
 	/**
 	 * Función que obtiene la ciudad en la posición indicada

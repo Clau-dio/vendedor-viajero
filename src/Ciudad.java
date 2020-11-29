@@ -17,6 +17,8 @@ public class Ciudad {
 	private int i;
 	/* j, posición j en la matriz de distancias */
 	private int j;
+	/* Lista de ciudades sucesoras */
+	private ListaCiudades ciudadesSucesoras;
 	
 	/**
 	 * Constructor encargado de instanciar a una ciudad
@@ -31,6 +33,7 @@ public class Ciudad {
 		this.nombre 	= nombre;
 		this.i 			= i;
 		this.j 			= j;
+		this.ciudadesSucesoras = null;
 		
 	}
 	/**
@@ -94,4 +97,21 @@ public class Ciudad {
 		
 		return distancia;
 	}
+	/**
+	 * Función que se encarga de definir que ciudades sucesoras tiene una determinada ciudad
+	 * 
+	 * @param ciudadesSucesoras
+	 */
+	public void setCiudadesSucesoras(ListaCiudades ciudadesSucesoras) {
+		this.ciudadesSucesoras = ciudadesSucesoras;
+	}
+	/**
+	 * Función que se encarga de devolver las ciudades sucesoras de una ciudad
+	 * 
+	 * @return Listaciudades
+	 */
+	public ListaCiudades getCiudadesSucesoras() {
+		return this.ciudadesSucesoras;
+	}
+	
 }
