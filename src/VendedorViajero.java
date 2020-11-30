@@ -1,8 +1,11 @@
 import java.util.Scanner;
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 /**
  * 
  */
+import java.io.IOException;
 
 /**
  * @author Claudio__o
@@ -173,6 +176,37 @@ public class VendedorViajero {
 		return ciudadesVisitadas;
 	}
 	/**
+	 * Funcioin para guardar los datos en un archivo de texto
+	 * 
+	 * @param cantCiudades
+	 * @param tiempo
+	 */
+	public static void guardarDatos(int cantCiudades, double tiempo) {
+		//crea el flujo para escribir en el archivo
+        FileWriter flwriter = null;
+		try {
+			flwriter = new FileWriter("VendedorViajero.txt",true);
+			//crea un buffer o flujo intermedio antes de escribir directamente en el archivo
+			BufferedWriter bfwriter = new BufferedWriter(flwriter);
+			bfwriter.write(cantCiudades+","+tiempo+"\n");
+			//cierra el buffer intermedio
+			
+			bfwriter.close();
+			flwriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if (flwriter != null) {
+				try {//cierra el flujo principal
+					flwriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	/**
 	 * Inicia el programa con cantidad de ciudades y ciudad inicial indicada
 	 * 
 	 * @param cantCiudades
@@ -212,19 +246,25 @@ public class VendedorViajero {
 	/**
 	 * Inicia el programa con una cantidad de ciudades 4 y luego aumenta en 2
 	 * Hasta que se caiga
+	 * @throws IOException 
 	 * 
 	 */
-	public static void iniciar() {
+	public static void iniciar() throws IOException {
 		System.out.println("");
         System.out.println("<----------------------- Iniciando programa ----------------------->");
         System.out.println("");
+        /* Si hay un archivo con los tiempos anteriores lo borramos para guardar uno nuevo */
+        File fichero = new File("VendedorViajero.txt");
         
+        fichero.delete();
+        
+        /* cantidad de ciudades inicial */
         int cantCiudades = 4;
-        while(true) {
+        while(cantCiudades < 400) {
         	/* Variables para determinar el tiempo de ejecución*/
-	        double TInicio, TFin, tiempo; 
+	        double TInicio = 0, TFin = 0, tiempo = 0; 
 	        /* Tomamos la hora en que inicio el algoritmo y la almacenamos en la variable inicio */
-	        TInicio = System.currentTimeMillis(); 
+	        TInicio = System.nanoTime();
 	        /* Creamos la matriz de distancias */
 	        int [][] matrizDistancias = llenarMatriz(cantCiudades);
 			//mostrarMatriz(matrizDistancias);
@@ -236,9 +276,9 @@ public class VendedorViajero {
 			ListaCiudades caminoViajero = breadthFirst(matrizDistancias, ciudadPartida);
 	        
 	        /* Tomamos la hora en que finalizó el algoritmo y la almacenamos en la variable T */
-			TFin = System.currentTimeMillis(); 
+			TFin = System.nanoTime();
 			/* Calculamos los milisegundos de diferencia */
-			tiempo = TFin - TInicio; 
+			tiempo = (TFin - TInicio) / 1e6; 
 			/* Mostramos el camino que tomo el viajero */
 			//dibujarCamino(caminoViajero, matrizDistancias);
 			/* Mostramos la cantidad de ciudades que estamos visitando */
@@ -246,6 +286,8 @@ public class VendedorViajero {
 	        /* Mostramos en pantalla el tiempo de ejecución en milisegundos */
 			System.out.println("Tiempo de ejecución en milisegundos: " + tiempo);
 			
+			/* guardadmos los datos de la ciudad actual */
+			guardarDatos(cantCiudades,tiempo);
 			
 			/* Aumentamos la cantidad de ciudades */
 			cantCiudades = cantCiudades + 2;
@@ -257,8 +299,9 @@ public class VendedorViajero {
 	 * Funcion principal del programa
 	 *
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		Scanner sc = new Scanner(System.in);
 		String opcion = "";
