@@ -19,7 +19,6 @@ public class Ciudad {
 	private int j;
 	/* Lista de ciudades sucesoras */
 	private ListaCiudades ciudadesSucesoras;
-	
 	/**
 	 * Constructor encargado de instanciar a una ciudad
 	 * recibe como parametros el nombre, la posicion i, la posicion j 
@@ -34,7 +33,6 @@ public class Ciudad {
 		this.i 			= i;
 		this.j 			= j;
 		this.ciudadesSucesoras = new ListaCiudades();
-		
 	}
 	/**
 	 * Función que se encarga de cambiar el nombre de la ciudad
@@ -113,5 +111,4 @@ public class Ciudad {
 	public ListaCiudades getCiudadesSucesoras() {
 		return this.ciudadesSucesoras;
 	}
-	
 }

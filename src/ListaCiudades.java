@@ -288,4 +288,22 @@ public class ListaCiudades {
 		return ciudad;
 		
 	}
+	/**
+	 * Funcion que copia la lista actual y devuelve la copia creada
+	 * 
+	 * @return ListaCiudades
+	 */
+	public ListaCiudades copiarLista() {
+		
+		ListaCiudades nuevaLista = new ListaCiudades();
+		
+		NodoCiudad nodoActual = this.first;
+		
+		while(nodoActual != null) {
+			
+			nuevaLista.ingresarCiudad(nodoActual.getCiudad());
+			nodoActual = nodoActual.getNext();
+		}
+		return nuevaLista;
+	}
 }
